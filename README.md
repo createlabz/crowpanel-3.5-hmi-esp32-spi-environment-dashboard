@@ -337,5 +337,124 @@ Developed for experimentation and UI development using:
 **CrowPanel ESP32 Displays + LVGL dashboards**
 
 ---
+⚠️ Difficulties Encountered When Running the LVGL Demo
+1️⃣ Display Configuration Issues
 
+The TFT_eSPI library must be configured manually for the CrowPanel display.
+
+Incorrect configuration can cause:
+
+White screen
+
+Wrong colors
+
+Display not initializing.
+
+Cause:
+TFT_eSPI requires editing User_Setup_Select.h or a custom setup file.
+
+2️⃣ Touch Screen Calibration
+
+The resistive touch screen requires manual calibration.
+
+Without calibration:
+
+Touch coordinates are inaccurate
+
+Buttons and widgets are difficult to press.
+
+Solution:
+Apply calibration values using:
+
+tft.setTouch(calData);
+3️⃣ High Memory Requirement
+
+LVGL graphics require a large frame buffer.
+
+Without PSRAM enabled, the program may fail to run.
+
+Typical error:
+
+PSRAM allocation failed!
+
+Solution:
+Enable PSRAM in Arduino IDE settings.
+
+4️⃣ LVGL Configuration Complexity
+
+LVGL requires proper configuration through lv_conf.h.
+
+Incorrect settings may cause:
+
+Compilation errors
+
+Widgets not appearing
+
+Memory allocation problems.
+
+5️⃣ Library Compatibility Issues
+
+Some LVGL demos require specific versions of libraries.
+
+Using mismatched versions may cause:
+
+Compilation errors
+
+Missing functions.
+
+Example:
+
+Library	Working Version
+LVGL	8.3.11
+TFT_eSPI	2.5.43
+6️⃣ Display Performance
+
+Without proper buffering or PSRAM, UI animations may be:
+
+Laggy
+
+Flickering
+
+Slow during scrolling.
+
+7️⃣ Manual Integration of Sensor Data
+
+LVGL demos are not designed for sensors by default.
+
+Additional coding is required to:
+
+Read sensors (e.g., DHT11)
+
+Update charts and gauges dynamically.
+
+8️⃣ Interrupt and Timer Setup
+
+LVGL requires a tick timer to update the UI.
+
+Incorrect timer configuration can cause:
+
+UI freezing
+
+Widgets not updating.
+
+Example:
+
+lv_tick_inc(1);
+💡 Summary
+
+Running the LVGL demo on embedded hardware requires:
+
+Correct display configuration
+
+Touch calibration
+
+Proper memory allocation
+
+Compatible library versions
+
+Correct LVGL timing setup
+
+These steps make the setup more complex compared to plug-and-play display libraries.
+
+---
 ⭐ If this project helped you, consider giving the repository a **star**.
