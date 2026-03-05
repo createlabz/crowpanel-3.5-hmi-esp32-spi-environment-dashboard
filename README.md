@@ -337,95 +337,111 @@ Developed for experimentation and UI development using:
 **CrowPanel ESP32 Displays + LVGL dashboards**
 
 ---
-⚠️ Difficulties Encountered When Running the LVGL Demo
-1️⃣ Display Configuration Issues
+## ⚠️ Difficulties Encountered When Running the LVGL Demo
 
-The TFT_eSPI library must be configured manually for the CrowPanel display.
+Running the **LVGL Widgets Demo** on the **CrowPanel 3.5" HMI ESP32 SPI display** requires several configuration steps. Below are the common difficulties encountered during setup and testing.
+
+---
+
+### 1️⃣ Display Configuration Issues
+
+The **TFT_eSPI library** must be configured manually for the CrowPanel display.
 
 Incorrect configuration can cause:
 
-White screen
+- White screen
+- Wrong colors
+- Display not initializing
 
-Wrong colors
+**Cause**
 
-Display not initializing.
+TFT_eSPI requires editing: User_Setup_Select.h
 
-Cause:
-TFT_eSPI requires editing User_Setup_Select.h or a custom setup file.
 
-2️⃣ Touch Screen Calibration
+or enabling a **custom display setup file** that matches the CrowPanel hardware.
 
-The resistive touch screen requires manual calibration.
+---
+
+### 2️⃣ Touch Screen Calibration
+
+The **resistive touch screen** requires **manual calibration**.
 
 Without calibration:
 
-Touch coordinates are inaccurate
+- Touch coordinates are inaccurate
+- Buttons and widgets are difficult to press
 
-Buttons and widgets are difficult to press.
+**Solution**
 
-Solution:
-Apply calibration values using:
+Apply calibration values in the code:
 
+```cpp
 tft.setTouch(calData);
+
 3️⃣ High Memory Requirement
 
 LVGL graphics require a large frame buffer.
 
 Without PSRAM enabled, the program may fail to run.
 
-Typical error:
+Typical error: PSRAM allocation failed!
 
-PSRAM allocation failed!
+Solution
 
-Solution:
-Enable PSRAM in Arduino IDE settings.
+Enable PSRAM in Arduino IDE → Tools → PSRAM → Enabled.
 
 4️⃣ LVGL Configuration Complexity
 
-LVGL requires proper configuration through lv_conf.h.
+LVGL requires proper configuration through the file: lv_conf.h
 
 Incorrect settings may cause:
 
-Compilation errors
+-Compilation errors
 
-Widgets not appearing
+-Widgets not appearing
 
-Memory allocation problems.
+-Memory allocation problems
 
 5️⃣ Library Compatibility Issues
 
-Some LVGL demos require specific versions of libraries.
+Some LVGL demos require specific library versions.
 
 Using mismatched versions may cause:
 
-Compilation errors
+-Compilation errors
 
-Missing functions.
+-Missing functions
 
-Example:
+Example working versions:
 
-Library	Working Version
-LVGL	8.3.11
-TFT_eSPI	2.5.43
+| Library  | Working Version |
+| -------- | --------------- |
+| LVGL     | 8.3.11          |
+| TFT_eSPI | 2.5.43          |
+
 6️⃣ Display Performance
 
-Without proper buffering or PSRAM, UI animations may be:
+Without proper buffering or PSRAM, UI animations may become:
 
-Laggy
+-Laggy
 
-Flickering
+-Flickering
 
-Slow during scrolling.
+-Slow during scrolling
+
+Using PSRAM-based frame buffers improves rendering performance.
 
 7️⃣ Manual Integration of Sensor Data
 
-LVGL demos are not designed for sensors by default.
+LVGL demos are designed mainly for UI demonstration, not sensor integration.
 
 Additional coding is required to:
 
-Read sensors (e.g., DHT11)
+-Read sensors (e.g., DHT11)
 
-Update charts and gauges dynamically.
+-Update charts and gauges dynamically
+
+-Display real-time environmental data on the UI
 
 8️⃣ Interrupt and Timer Setup
 
@@ -433,28 +449,30 @@ LVGL requires a tick timer to update the UI.
 
 Incorrect timer configuration can cause:
 
-UI freezing
+-UI freezing
 
-Widgets not updating.
+-Widgets not updating
 
-Example:
+Example tick update:
 
 lv_tick_inc(1);
+
 💡 Summary
 
 Running the LVGL demo on embedded hardware requires:
 
-Correct display configuration
+-Correct display configuration
 
-Touch calibration
+-Touch screen calibration
 
-Proper memory allocation
+-Proper memory allocation
 
-Compatible library versions
+-Compatible library versions
 
-Correct LVGL timing setup
+-Correct LVGL timing setup
 
-These steps make the setup more complex compared to plug-and-play display libraries.
+Because of these requirements, setting up LVGL on custom embedded hardware can be more complex compared to basic display libraries.
+
 
 ---
 ⭐ If this project helped you, consider giving the repository a **star**.
