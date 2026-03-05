@@ -75,6 +75,8 @@ Install the following libraries using **Arduino Library Manager**.
 
 Version **8.3.11**
 
+Download link: https://github.com/createlabz/lvgl
+
 ### TFT_eSPI
 
 Version **2.5.43**
