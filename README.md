@@ -373,10 +373,7 @@ Without calibration:
 
 **Solution**
 
-Apply calibration values in the code:
-
-```cpp
-tft.setTouch(calData);
+Apply calibration values in the code: tft.setTouch(calData);
 
 3️⃣ High Memory Requirement
 
