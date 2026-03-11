@@ -1,5 +1,9 @@
 # 🌡️ CrowPanel 3.5" HMI ESP32 Environmental Monitoring Dashboard
 
+<p align="center">
+  <img src="https://github.com/createlabz/website_createlabz_picsv2/blob/main/3.5spi.jpg?raw=true" alt="CrowPanel 3.5" SPI Display" width="400"/>
+</p>
+
 ### LVGL + DHT11 + Bluetooth Serial
 
 An **LVGL-based environmental monitoring dashboard** built for the
